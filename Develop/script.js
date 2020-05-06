@@ -9,26 +9,43 @@ var hr8 = $("#time8").text();
 var hr9 = $("#time9").text();
 var hr10= $("#time10").text();
 
-var eightInt = parseInt(hr1);
-var nineInt = parseInt(hr2);
-var tenInt = parseInt(hr3);
+var eightInt  = parseInt(hr1);
+var nineInt   = parseInt(hr2);
+var tenInt    = parseInt(hr3);
 var elevenInt = parseInt(hr4);
 var twelveInt = parseInt(hr5);
-var oneInt = parseInt(hr6);
-var twoInt = parseInt(hr7);
-var threeInt = parseInt(hr8);
-var fourInt = parseInt(hr9);
-var fiveInt = parseInt(hr10);
+var oneInt    = parseInt(hr6);
+var twoInt    = parseInt(hr7);
+var threeInt  = parseInt(hr8);
+var fourInt   = parseInt(hr9);
+var fiveInt   = parseInt(hr10);
 
 
 
 $(document).ready(function(){
-  let current_time = moment().format("HH:mm");
-  console.log(current_time);
-  $('.content').each(function(i, obj) {
-    let content_time = $(this).attr("time").moment(current_time).format("HH:mm");
+  let current_time = moment().format("HH:mm").slice(0,2);
+  console.log(`current time:${current_time}`);
+  $('textarea').each(function() {
+  
+    let content_time = $(this).attr("time").slice(0,2);
     
-    console.log(content_time);
+    if ( parseInt(current_time) > parseInt(content_time) ){
+      $(this).removeClass("present");
+      $(this).removeClass("future");
+      $(this).addClass("past");
+    } else if ( parseInt(current_time) < parseInt(content_time) ){
+      $(this).removeClass("present");
+      $(this).removeClass("past");
+      $(this).addClass("future");
+      
+    } else {
+      console.log("else time");
+      $(this).removeClass("future");
+      $(this).removeClass("past");
+      $(this).addClass("present");
+      
+  
+    }
   });
 
   $(".btn").on("click", function(){
@@ -55,41 +72,8 @@ $(document).ready(function(){
 
 });
 
- function timeBlockColorCoding() {
+ 
 
-   timeBlock = setInterval(timeBlockColorCoding, 1000);
-  Test check: hourNow24 = 20;
-   if(nowHour24 >= 10 && nowHour24 <= 16) {
+   
 
-     for (let i =1; i<=10 ; i++) { 
-     let hourInInt = parseInt($('#time'+i).text());
 
-      if (hourInInt < 9) {
-        hourInInt = hourInInt + 12;
-       }
-      
-       if (hourInInt == hourNow24) {
-        $('#text'+i).css('background-color', '#FB8F78');
-         continue;
-      }
-      
-      if (hourInInt < nowHour24) {
-        $('#text'+i).css('background-color', 'lightgray');
-       } 
-       else {
-        $('#text'+i).css('background-color', 'lightgreen');
-      }
-     }
-
-   }
-   else {
-    clearInterval(timeBlock);
-     $('text').css('background-color', 'pink');
-   }
- }
-
- let tasker= {
-   selectElements: function(){
-     this.taskInput = document.getsElementById("input_task")
-  }
-    } 
